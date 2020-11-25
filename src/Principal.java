@@ -1,9 +1,8 @@
 public class Principal{
     private static final int PAISES = 9;
-
     // con esto obtengo cuantos paises han terminado
     public int paisesTerminados = 0;
-
+    // aqui almaceno el pais que Ha ganado.
     public static Pais paisGanador;
 
     public Principal() {
@@ -16,10 +15,6 @@ public class Principal{
 
     public int getPaisesTerminados() {
         return paisesTerminados;
-    }
-
-    public Pais getPaisGanador() {
-        return paisGanador;
     }
 
     public synchronized void setPaisGanador(Pais ganador) {

@@ -34,6 +34,7 @@ public class Pais extends Thread {
 
             System.out.println(corredor.getName() + " del pais " + this.getName() + " esta corriendo ");
             sleep(tiempoCarrera);
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
