@@ -7,7 +7,7 @@ public class Pais extends Thread {
 
     // variables
     public int acabados = 0;
-    public Semaphore corredor_dentro = new Semaphore(MAXCORREDORES, true);
+    public Semaphore corredorDentro = new Semaphore(MAXCORREDORES, true);
 
     Principal callback;
 
@@ -20,17 +20,19 @@ public class Pais extends Thread {
     @Override
     public void run() {
         for (int i = 0; i < NUMEROGRUPO; i++) {
+
             Corredor corredor = new Corredor(this);
-            corredor.setName("Corredor " + (i+1));
+            corredor.setName("Corredor " + (i + 1));
             corredor.start();
 
         }
     }
 
-    public void siguiente(Corredor corredor,int tiempoCarrera) {
+    public void siguiente(Corredor corredor, int tiempoCarrera) {
         try {
-            corredor_dentro.acquire();
-            System.out.println(corredor.getName() + " del pais " + this.getName() + " entro"+(tiempoCarrera/1000));
+            corredorDentro.acquire();
+
+            System.out.println(corredor.getName() + " del pais " + this.getName() + " esta corriendo ");
             sleep(tiempoCarrera);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -39,10 +41,11 @@ public class Pais extends Thread {
 
     public void anteriorAcaba(Corredor corredor) {
         acabados++;
-        corredor_dentro.release();
+        corredorDentro.release();
         System.out.println(corredor.getName() + " del pais" + this.getName() + " he acabado la primera parte");
-        if(acabados >= 4){
-            System.out.println("han acabado todos los corredores de "+this.getName());
+
+        if (acabados >= 4) {
+            System.out.println("han acabado todos los corredores de " + this.getName());
             callback.setPaisGanador(this);
             callback.incrementarPaisesTerminados();
         }
