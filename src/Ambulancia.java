@@ -5,6 +5,6 @@ public class Ambulancia extends Thread{
 
     @Override
     public void run() {
-
+        //
     }
 }

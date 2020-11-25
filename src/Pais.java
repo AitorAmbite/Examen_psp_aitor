@@ -39,4 +39,9 @@ public class Pais extends Thread {
             System.out.println("han acabado todos los corredores de "+this.getName());
         }
     }
+
+    // llama a la ambulancia...chungo-raruno?
+    public void falloObstaculo(){
+
+    }
 }
