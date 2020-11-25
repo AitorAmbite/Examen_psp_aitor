@@ -11,29 +11,26 @@ public class Corredor extends Thread{
     public void run() {
         Random generarAleatorios = new Random();
         int tiempoCarrera = 0;
-        try {
-            miPais.siguiente(this);
-            // calculo tiempo que va a tardar
-            tiempoCarrera = generarAleatorios.nextInt(4000)+1000;
-            sleep(tiempoCarrera);
 
-            //esbozo primario de como calcular si pasa el obstaculo o no
-            // por pruebas siepre pasan el obstaculo.
+        // calculo tiempo que va a tardar funciona, lo unico es que parece que lo hacen todos a la vez
+        // porque suele haber muy poca diferencia entre ellos al ser 1 a 5 segundos.
+       //  tiempoCarrera = generarAleatorios.nextInt(4000)+15000; <- para ver que se hacia correctamente los sleep etc si no era demasiado rapido.
+        tiempoCarrera = generarAleatorios.nextInt(4000)+1000;
 
+        // Entro a la "pista" a competir
+        miPais.siguiente(this,tiempoCarrera);
 
-            if(generarAleatorios.nextInt(100) <= 90 ){
-                // digo que he pasado el obstaculo y permito que entre otro
-                System.out.println("he pasado el obstaculo");
-                miPais.anteriorAcaba(this);
-            }else{
-                System.out.println("me hice dañito que alguien me salve");
-                wait();
-                miPais.anteriorAcaba(this);
+        //esta puesto en 100 siempre
+        if(generarAleatorios.nextInt(100) <= 100 ){
+            // digo que he pasado el obstaculo y permito que entre otro
+            // System.out.println("he pasado el obstaculo"); <- esto era para informacion mia.
+            miPais.anteriorAcaba(this);
 
-            }
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        }else{
+            // no me ha dado tiempo :(
+            System.out.println("me hice dañito que alguien me salve");
+            miPais.anteriorAcaba(this);
         }
+
     }
 }
